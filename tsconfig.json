@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@setups/*": ["./setups/*"]
+    },
+    "outDir": "./build"
+  },
+  "include": ["./pandorium.ts", "./pandorium.utils.ts", "./setups/*"]
+}
