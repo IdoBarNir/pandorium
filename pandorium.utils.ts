@@ -11,7 +11,7 @@ export const isYarnInstalled = () => {
   try {
     execSync("yarn --version", { stdio: "ignore" });
     return true;
-  } catch (e) {
+  } catch (error) {
     return false;
   }
 };

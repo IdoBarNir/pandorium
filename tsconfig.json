@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
+    "resolveJsonModule": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "baseUrl": ".",
@@ -10,5 +11,11 @@
     },
     "outDir": "./build"
   },
-  "include": ["./pandorium.ts", "./pandorium.utils.ts", "./setups/*"]
+  "include": [
+    "./pandorium.ts",
+    "./pandorium.utils.ts",
+    "./setups/*",
+    "setups/setupNext/setupNext.ts",
+    "setups/setupVercel/setupVercel.ts"
+  ]
 }
