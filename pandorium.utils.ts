@@ -1,9 +1,13 @@
 import { execSync } from "child_process";
 import fs from "fs";
 
-export const createDirectory = (targetPath: string): void => {
-  if (!fs.existsSync(targetPath)) {
-    fs.mkdirSync(targetPath, { recursive: true });
+export const createDirectory = ({
+  projectPath,
+}: {
+  projectPath: string;
+}): void => {
+  if (!fs.existsSync(projectPath)) {
+    fs.mkdirSync(projectPath, { recursive: true });
   }
 };
 
@@ -19,4 +23,13 @@ export const isYarnInstalled = () => {
 export const installYarn = () => {
   console.log("Installing Yarn...");
   execSync("npm install --global yarn", { stdio: "inherit" });
+};
+
+export const readConfig = ({ configPath }: { configPath: string }) => {
+  try {
+    const configFile = fs.readFileSync(configPath, "utf8");
+    return JSON.parse(configFile);
+  } catch (error) {
+    throw new Error(`Failed to read configuration file: ${error.message}`);
+  }
 };

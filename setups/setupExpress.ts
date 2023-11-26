@@ -1,7 +1,7 @@
 import { execSync } from "child_process";
 import fs from "fs";
 
-const setupExpress = async (projectPath: string) => {
+const setupExpress = async ({ projectPath }: { projectPath: string }) => {
   execSync(`cd ${projectPath} && yarn add express @types/express `, {
     stdio: "inherit",
   });

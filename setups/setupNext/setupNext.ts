@@ -2,7 +2,11 @@ import { spawn } from "child_process";
 
 import nextPrompts from "./nextPrompts.json" assert { type: "json" };
 
-const setupNext = async (projectPath: string): Promise<void> => {
+const setupNext = async ({
+  projectPath,
+}: {
+  projectPath: string;
+}): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
     const child = spawn(
       "yarn",

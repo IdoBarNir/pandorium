@@ -1,6 +1,6 @@
 import { execSync } from "child_process";
 
-const setupVercel = async (projectPath: string) => {
+const setupVercel = async ({ projectPath }: { projectPath: string }) => {
   const isVercelCliInstalled = (): boolean => {
     try {
       execSync("vercel --version", { stdio: "ignore" });
@@ -20,7 +20,11 @@ const setupVercel = async (projectPath: string) => {
     execSync("vercel login", { stdio: "inherit" });
   };
 
-  const initializeVercelProject = (projectPath: string): void => {
+  const initializeVercelProject = ({
+    projectPath,
+  }: {
+    projectPath: string;
+  }): void => {
     console.log("Initializing Vercel project...");
     execSync(`cd ${projectPath} && vercel`, { stdio: "inherit" });
   };
@@ -30,7 +34,7 @@ const setupVercel = async (projectPath: string) => {
   }
 
   vercelLogin();
-  initializeVercelProject(projectPath);
+  initializeVercelProject({ projectPath });
 
   console.log("Vercel setup complete!");
 };

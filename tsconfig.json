@@ -11,11 +11,5 @@
     },
     "outDir": "./build"
   },
-  "include": [
-    "./pandorium.ts",
-    "./pandorium.utils.ts",
-    "./setups/*",
-    "setups/setupNext/setupNext.ts",
-    "setups/setupVercel/setupVercel.ts"
-  ]
+  "include": ["./pandorium.ts", "./pandorium.utils.ts", "./setups/**/*"]
 }
