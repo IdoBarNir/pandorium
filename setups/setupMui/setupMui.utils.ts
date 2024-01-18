@@ -1,4 +1,4 @@
-import fs from "fs";
+import { promises as fs, existsSync } from "fs";
 
 const muiFolders = {
   "@app/*": ["./src/app/app/*"],
@@ -10,29 +10,35 @@ const muiFolders = {
   "@theme/*": ["./src/app/theme/*"],
 };
 
-export const setupMuiFolders = ({ projectPath }) => {
+export const setupMuiFolders = async ({
+  projectPath,
+}: {
+  projectPath: string;
+}): Promise<void> => {
   const tsConfigPath = `${projectPath}/tsconfig.json`;
 
   try {
-    // Update tsconfig.json
-    const tsConfig = JSON.parse(fs.readFileSync(tsConfigPath, "utf8"));
+    const tsConfig = JSON.parse(await fs.readFile(tsConfigPath, "utf8"));
     tsConfig.compilerOptions = tsConfig.compilerOptions || {};
-    tsConfig.compilerOptions.paths = {
-      ...muiFolders,
-    };
-    fs.writeFileSync(tsConfigPath, JSON.stringify(tsConfig, null, 2));
+    tsConfig.compilerOptions.paths = { ...muiFolders };
+    await fs.writeFile(tsConfigPath, JSON.stringify(tsConfig, null, 2));
 
-    Object.values(muiFolders).forEach((pathArray) => {
-      pathArray.forEach((path) => {
-        const fullPath = `${projectPath}/${path.replace("/*", "")}`;
-        if (!fs.existsSync(fullPath)) {
-          fs.mkdirSync(fullPath, { recursive: true });
-        }
-      });
-    });
+    await Promise.all(
+      Object.values(muiFolders).flatMap((paths) =>
+        paths.map((path) =>
+          createDirectory(`${projectPath}/${path.replace("/*", "")}`)
+        )
+      )
+    );
   } catch (error) {
     throw new Error(
       `Failed to update tsconfig.json and create directories: ${error.message}`
     );
+  }
+};
+
+const createDirectory = async (path: string): Promise<void> => {
+  if (!existsSync(path)) {
+    await fs.mkdir(path, { recursive: true });
   }
 };

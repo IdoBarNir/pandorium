@@ -1,5 +1,3 @@
-import { execSync } from "child_process";
-
 import {
   setupExpress,
   setupMui,
@@ -9,25 +7,22 @@ import {
 } from "@setups/index.js";
 import {
   createDirectory,
+  execAsync,
   installYarn,
   isYarnInstalled,
-  readConfig,
+  readAndValidateConfig,
 } from "./pandorium.utils.js";
 
 const pandorium = async () => {
-  const configPath = "./pandoriumConfig.json";
-  const config = readConfig({ configPath });
-
-  if (!config.projectName || !config.supabaseUrl || !config.supabaseAnonKey) {
-    throw new Error("Please fill in all required fields in config.json");
-  }
-
+  const config = await readAndValidateConfig({
+    configPath: "./pandoriumConfig.json",
+  });
   const projectPath = `../${config.projectName}`;
 
   createDirectory({ projectPath });
 
   if (!isYarnInstalled()) {
-    installYarn();
+    await installYarn();
   }
 
   await setupNext({ projectPath });
@@ -40,13 +35,15 @@ const pandorium = async () => {
   });
   await setupVercel({ projectPath });
 
-  console.log("Running yarn build...");
-  execSync("yarn build", { stdio: "inherit", cwd: projectPath });
+  console.log(`building ${config.projectName}...`);
+  await execAsync("yarn build", { cwd: projectPath });
 
-  console.log("Starting the application...");
-  execSync("yarn start", { stdio: "inherit", cwd: projectPath });
+  console.log(`starting ${config.projectName}...`);
+  await execAsync("yarn start", { cwd: projectPath });
 
-  console.log("Project setup and launch complete!");
+  console.log(`${config.projectName} setup and launch complete!`);
 };
 
-pandorium().catch(console.error);
+pandorium().catch((error) => {
+  console.error(`Error during project setup: ${error.message}`);
+});

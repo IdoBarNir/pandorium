@@ -5,7 +5,7 @@ const setupVercel = async ({ projectPath }: { projectPath: string }) => {
     try {
       execSync("vercel --version", { stdio: "ignore" });
       return true;
-    } catch (e) {
+    } catch (error) {
       return false;
     }
   };

@@ -1,3 +1,4 @@
+import { promises as fs } from "fs";
 import { spawn } from "child_process";
 
 import nextPrompts from "./nextPrompts.json" assert { type: "json" };
@@ -19,25 +20,37 @@ const setupNext = async ({
     child.stdout.on("data", (data) => {
       const output = data.toString();
       console.log(output);
-
-      for (const prompt in nextPrompts) {
+      Object.entries(nextPrompts).forEach(([prompt, response]) => {
         if (output.includes(prompt)) {
-          const response = nextPrompts[prompt];
           child.stdin.write(response);
-          break;
         }
+      });
+    });
+
+    child.stderr.on("data", (data) => console.error(data.toString()));
+
+    child.on("close", async (code) => {
+      if (code !== 0) {
+        return reject(new Error(`setupNext exited with code ${code}`));
       }
-    });
 
-    child.stderr.on("data", (data) => {
-      console.error(data.toString());
-    });
-
-    child.on("close", (code) => {
-      if (code === 0) {
+      try {
+        const packageJsonPath = `${projectPath}/package.json`;
+        const packageJson = JSON.parse(
+          await fs.readFile(packageJsonPath, "utf8")
+        );
+        packageJson.license = "MIT";
+        await fs.writeFile(
+          packageJsonPath,
+          JSON.stringify(packageJson, null, 2)
+        );
         resolve();
-      } else {
-        reject(new Error(`setupNext exited with code ${code}`));
+      } catch (error) {
+        reject(
+          new Error(
+            `Failed to add MIT license to package.json: ${error.message}`
+          )
+        );
       }
     });
   });
