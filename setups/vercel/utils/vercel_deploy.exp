@@ -1,0 +1,17 @@
+#!/usr/bin/expect
+
+set timeout 1000
+
+spawn vercel 
+
+expect "\[Y/n\]"
+send "\r"
+
+expect "Which scope do you want to deploy to?"
+send "\r"
+
+expect "Link to it?"
+send "\r"
+
+
+expect eof

@@ -1,13 +1,17 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "esNext",
+    "module": "esNext",
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@setups/*": ["./setups/*"]
+      "@*": ["./*"],
+      "@config/*": ["./config/*"],
+      "@setups/*": ["./setups/*"],
+      "@utils/*": ["./utils/*"],
+      "@types/*": ["./types/*"]
     },
     "outDir": "./build"
   },

@@ -1,0 +1,1 @@
+export { vercelSetup } from "./vercelSetup";

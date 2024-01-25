@@ -1,49 +1,37 @@
 import {
-  setupExpress,
-  setupMui,
-  setupNext,
-  setupSupabase,
-  setupVercel,
-} from "@setups/index.js";
-import {
-  createDirectory,
-  execAsync,
-  installYarn,
-  isYarnInstalled,
-  readAndValidateConfig,
-} from "./pandorium.utils.js";
+  expressSetup,
+  initialSetup,
+  muiSetup,
+  nextSetup,
+  supabaseSetup,
+  vercelSetup,
+} from "@setups";
+import { execAsync } from "@/utils";
+import { PROJECT_NAME, PROJECT_PATH } from "@/config";
 
 const pandorium = async () => {
-  const config = await readAndValidateConfig({
-    configPath: "./pandoriumConfig.json",
+  console.log(`\nsetting up ${PROJECT_NAME}...\n`);
+  await initialSetup();
+  await nextSetup();
+  await muiSetup();
+  await expressSetup();
+  await supabaseSetup();
+
+  console.log(`\nbuilding ${PROJECT_NAME}...\n`);
+  await execAsync({
+    command: `cd ${PROJECT_PATH} && yarn build`,
+    options: { stdio: "inherit" },
   });
-  const projectPath = `../${config.projectName}`;
 
-  createDirectory({ projectPath });
+  await vercelSetup();
 
-  if (!isYarnInstalled()) {
-    await installYarn();
-  }
-
-  await setupNext({ projectPath });
-  await setupMui({ projectPath });
-  await setupExpress({ projectPath });
-  await setupSupabase({
-    projectPath,
-    supabaseUrl: config.supabaseUrl,
-    supabaseAnonKey: config.supabaseAnonKey,
+  console.log(`\nstarting ${PROJECT_NAME}...\n`);
+  await execAsync({
+    command: `cd ${PROJECT_PATH} && ../pandorium/utils/execution/start_project.exp`,
+    options: { stdio: "inherit" },
   });
-  await setupVercel({ projectPath });
-
-  console.log(`building ${config.projectName}...`);
-  await execAsync("yarn build", { cwd: projectPath });
-
-  console.log(`starting ${config.projectName}...`);
-  await execAsync("yarn start", { cwd: projectPath });
-
-  console.log(`${config.projectName} setup and launch complete!`);
 };
 
 pandorium().catch((error) => {
-  console.error(`Error during project setup: ${error.message}`);
+  console.error(`\n${PROJECT_NAME} setup failed: ${error.message}\n`);
 });

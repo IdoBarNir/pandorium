@@ -1,0 +1,1 @@
+export { muiFoldersSetup } from "./muiFoldersSetup";

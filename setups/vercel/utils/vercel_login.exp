@@ -1,0 +1,8 @@
+#!/usr/bin/expect
+
+spawn vercel login
+
+expect "? Log in to Vercel"
+send "\r"
+
+expect eof
