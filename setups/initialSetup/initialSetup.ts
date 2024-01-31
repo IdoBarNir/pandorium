@@ -2,16 +2,13 @@ import { PROJECT_PATH } from "@config";
 import { createDirectory, installLibrary, isLibraryInstalled } from "@utils";
 
 export const initialSetup = async () => {
-  console.log("\nsetting up initial setup...\n");
+  createDirectory({ directoryPath: PROJECT_PATH });
 
-  try {
-    createDirectory({ directoryPath: PROJECT_PATH });
+  const yarnInstalled = await isLibraryInstalled({ libraryName: "yarn" });
 
-    if (!isLibraryInstalled({ libraryName: "yarn" })) {
-      await installLibrary({ libraryName: "yarn" });
-    }
-    console.log("\ninitial setup was setup successfully!\n");
-  } catch (error) {
-    throw new Error(`\ninitial setup failed: ${error.message}\n`);
+  console.log(yarnInstalled);
+
+  if (!yarnInstalled) {
+    await installLibrary({ libraryName: "yarn" });
   }
 };

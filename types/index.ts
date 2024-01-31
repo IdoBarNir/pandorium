@@ -1,1 +1,3 @@
-export { jsonType } from "./jsonType";
+export { jsonType } from "./dataTypes";
+
+export { ExecAsyncOptions } from "./libraryTypes";

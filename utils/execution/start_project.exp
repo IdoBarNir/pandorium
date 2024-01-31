@@ -2,8 +2,6 @@
 
 spawn yarn start 
 
-send_user "hello"
-
 expect "ms"
 
 exec open http://localhost:3000 

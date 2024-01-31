@@ -5,11 +5,5 @@ export const createDirectory = async ({
 }: {
   directoryPath: string;
 }) => {
-  try {
-    await promises.mkdir(directoryPath, { recursive: true });
-  } catch (error) {
-    throw new Error(
-      `Error creating directory at ${directoryPath}: ${error.message}`
-    );
-  }
+  await promises.mkdir(directoryPath, { recursive: true });
 };

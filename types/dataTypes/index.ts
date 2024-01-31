@@ -1,0 +1,1 @@
+export { jsonType } from "./jsonType";
