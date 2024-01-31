@@ -6,8 +6,8 @@ import {
   supabaseSetup,
   vercelSetup,
 } from "@setups";
-import { execAsync } from "@/utils";
-import { PROJECT_NAME, PROJECT_PATH } from "@/config";
+import { execAsync } from "@utils";
+import { PROJECT_NAME, PROJECT_PATH } from "@config";
 
 const pandorium = async () => {
   console.log(`\nsetting up ${PROJECT_NAME}...\n`);
