@@ -18,8 +18,11 @@
   },
   "dependencies": {
     "@types/inquirer": "^9.0.7",
+    "global": "^4.4.0",
     "inquirer": "^9.2.12",
-    "node-pty": "^1.0.0"
+    "node-pty": "^1.0.0",
+    "vercel": "^33.4.1",
+    "yarn": "^1.22.21"
   },
   "engines": {
     "node": ">=20.11.0"

@@ -8,3 +8,5 @@ export {
 } from "./file";
 
 export { isLibraryInstalled, installLibrary } from "./installation";
+
+export { loggerDogger } from "./logging";

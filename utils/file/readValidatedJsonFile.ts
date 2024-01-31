@@ -5,15 +5,9 @@ export const readValidatedJsonFile = async ({
 }: {
   jsonFilePath: string;
 }) => {
-  try {
-    const jsonContent = await readJsonFile({ jsonFilePath });
+  const jsonContent = await readJsonFile({ jsonFilePath });
 
-    await validateJson({ jsonContent });
+  await validateJson({ jsonContent });
 
-    return jsonContent;
-  } catch (error) {
-    throw new Error(
-      `failed to read validated json file at ${jsonFilePath}: ${error.message}`
-    );
-  }
+  return jsonContent;
 };

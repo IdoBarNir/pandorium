@@ -1,0 +1,1 @@
+export { ExecAsyncOptions } from "./childProcessTypes";
