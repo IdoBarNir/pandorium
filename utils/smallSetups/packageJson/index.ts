@@ -1,0 +1,1 @@
+export { packageJsonSetup } from "./packageJsonSetup";

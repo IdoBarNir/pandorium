@@ -13,7 +13,13 @@
       "@utils/*": ["./utils/*"],
       "@types/*": ["./types/*"]
     },
-    "outDir": "./build"
+    "outDir": "./dist"
   },
-  "include": ["./pandorium.ts", "./pandorium.utils.ts", "./setups/**/*"]
+  "include": [
+    "./pandorium.ts",
+    "./config/**/*",
+    "./setups/**/*",
+    "./utils/**/*",
+    "./types/**/*"
+  ]
 }

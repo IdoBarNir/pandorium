@@ -6,13 +6,17 @@ import {
   supabaseSetup,
   vercelSetup,
 } from "@setups";
-import { execAsync } from "@utils";
+import { execAsync, packageJsonSetup, tsconfigSetup } from "@utils";
 import { PROJECT_NAME, PROJECT_PATH } from "@config";
 
 const pandorium = async () => {
   console.log(`\nsetting up ${PROJECT_NAME}...\n`);
   await initialSetup();
   await nextSetup();
+
+  await packageJsonSetup();
+  await tsconfigSetup();
+
   await muiSetup();
   await expressSetup();
   await supabaseSetup();

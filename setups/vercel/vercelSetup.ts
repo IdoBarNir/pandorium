@@ -1,15 +1,9 @@
-import { installLibrary, isLibraryInstalled } from "@utils";
-import { vercelLogin, vercelDeploy } from "./utils";
+import { vercelLogin, vercelDeploy, vercelInstall } from "./utils";
 
 export const vercelSetup = async () => {
-  const isVercelCliInstalled = await isLibraryInstalled({
-    libraryName: "vercel",
-  });
-
-  if (!isVercelCliInstalled) {
-    await installLibrary({ libraryName: "vercel" });
-  }
+  await vercelInstall();
 
   await vercelLogin();
+
   await vercelDeploy();
 };

@@ -1,5 +1,4 @@
 import { loggerDogger } from "@utils";
-
 import { supabaseSetup as supabaseSetupRaw } from "./supabaseSetup";
 
 export const supabaseSetup = async () =>
