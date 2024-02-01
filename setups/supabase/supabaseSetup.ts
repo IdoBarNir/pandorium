@@ -1,12 +1,28 @@
-import { writeFile } from "fs/promises";
-
-import { PROJECT_PATH } from "@config";
 import { supabaseInstall } from "./utils";
-import { configContent, envContent } from "./heirloom";
+import { readFileAsync, writeFileAsync } from "@utils";
 
 export const supabaseSetup = async () => {
   await supabaseInstall();
 
-  await writeFile(`${PROJECT_PATH}/.env`, envContent);
-  await writeFile(`${PROJECT_PATH}/supabaseConfig.ts`, configContent);
+  const envContent = await readFileAsync({
+    fileName: ".env",
+    local: true,
+  });
+
+  const supabaseConfigContent = await readFileAsync({
+    fileName: "supabaseConfig",
+    fileType: "ts",
+    local: true,
+  });
+
+  await writeFileAsync({
+    fileName: "",
+    fileType: "env",
+    fileContent: envContent,
+  });
+  await writeFileAsync({
+    fileName: "supabaseConfig",
+    fileType: "ts",
+    fileContent: supabaseConfigContent,
+  });
 };

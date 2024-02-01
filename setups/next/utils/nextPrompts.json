@@ -1,7 +1,0 @@
-{
-  "Would you like to use ESLint?": "\n",
-  "Would you like to use Tailwind CSS?": "\n",
-  "Would you like to use `src/` directory?": "\n",
-  "Would you like to use App Router?": "\n",
-  "Would you like to customize the default import alias (@/*)?": "\\x1B[C\n"
-}

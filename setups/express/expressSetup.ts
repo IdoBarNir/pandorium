@@ -1,11 +1,18 @@
-import { writeFile } from "fs/promises";
-
-import { PROJECT_PATH } from "@config";
+import { readFileAsync, writeFileAsync } from "@utils";
 import { expressInstall } from "./utils";
-import { serverContent } from "./heirloom";
 
 export const expressSetup = async () => {
   await expressInstall();
 
-  await writeFile(`${PROJECT_PATH}/server.ts`, serverContent);
+  const serverContent = await readFileAsync({
+    fileName: "serverContent",
+    fileType: "ts",
+    local: true,
+  });
+
+  await writeFileAsync({
+    fileName: "server",
+    fileType: "ts",
+    fileContent: serverContent,
+  });
 };

@@ -43,12 +43,16 @@ const config = {
     new CopyPlugin({
       patterns: [
         {
+          from: ".env",
+          to: "heirloom",
+        },
+        {
           from: "setups/express/heirloom/serverContent.ts",
           to: "heirloom/serverContent.ts",
         },
         {
-          from: "setups/supabase/heirloom/configContent.ts",
-          to: "heirloom/configContent.ts",
+          from: "supabaseConfig.ts",
+          to: "heirloom/supabaseConfig.ts",
         },
       ],
     }),
