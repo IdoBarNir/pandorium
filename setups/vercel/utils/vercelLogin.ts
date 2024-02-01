@@ -6,6 +6,7 @@ export const vercelLogin = async () => {
     command: `cd ${PROJECT_PATH}`,
     options: { stdio: "inherit" },
   });
+
   await execAsync({
     command: `./setups/vercel/utils/vercel_login.exp`,
     options: { stdio: "inherit" },

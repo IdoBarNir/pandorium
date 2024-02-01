@@ -1,6 +1,8 @@
 import path from "path";
 import { fileURLToPath } from "url";
 
+import CopyPlugin from "copy-webpack-plugin";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -37,6 +39,20 @@ const config = {
   experiments: {
     outputModule: true,
   },
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "setups/express/heirloom/serverContent.ts",
+          to: "heirloom/serverContent.ts",
+        },
+        {
+          from: "setups/supabase/heirloom/configContent.ts",
+          to: "heirloom/configContent.ts",
+        },
+      ],
+    }),
+  ],
 };
 
 export default config;

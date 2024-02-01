@@ -1,14 +1,9 @@
 import { PROJECT_PATH } from "@config";
-import { createDirectory, installLibrary, isLibraryInstalled } from "@utils";
+import { createDirectory } from "@utils";
+import { yarnInstall } from "./utils";
 
 export const initialSetup = async () => {
-  createDirectory({ directoryPath: PROJECT_PATH });
+  await createDirectory({ directoryPath: PROJECT_PATH });
 
-  const yarnInstalled = await isLibraryInstalled({ libraryName: "yarn" });
-
-  console.log(yarnInstalled);
-
-  if (!yarnInstalled) {
-    await installLibrary({ libraryName: "yarn" });
-  }
+  await yarnInstall();
 };

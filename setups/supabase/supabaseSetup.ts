@@ -1,32 +1,12 @@
 import { writeFile } from "fs/promises";
 
 import { PROJECT_PATH } from "@config";
-import { execAsync } from "@utils";
-import { supabaseConfig } from "./utils";
+import { supabaseInstall } from "./utils";
+import { configContent, envContent } from "./heirloom";
 
 export const supabaseSetup = async () => {
-  await execAsync({
-    command: `cd ${PROJECT_PATH} && yarn add @supabase/supabase-js dotenv`,
-    options: {
-      stdio: "inherit",
-    },
-  });
+  await supabaseInstall();
 
-  const envContent = `SUPABASE_URL=${supabaseConfig.url}
-SUPABASE_ANON_KEY=${supabaseConfig.anonKey}
-`;
   await writeFile(`${PROJECT_PATH}/.env`, envContent);
-
-  const configContent = `import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const supabaseUrl = process.env.SUPABASE_URL ?? "";
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY ?? "";
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-`;
-
   await writeFile(`${PROJECT_PATH}/supabaseConfig.ts`, configContent);
 };
