@@ -1,0 +1,58 @@
+#!/usr/bin/expect
+
+set timeout 1000
+
+
+set PROJECT_NAME [lindex $argv 0];
+
+spawn yarn create next-app --typescript $PROJECT_NAME
+
+
+expect "Would you like to use"
+
+sleep 0.5
+
+send "\r"
+
+sleep 1
+
+expect "Would you like to use"
+
+sleep 0.5
+
+send "\r"
+
+sleep 1
+
+expect "Would you like to use"
+
+sleep 0.5
+
+send "\r"
+
+sleep 1
+
+expect "Would you like to use"
+
+sleep 0.5
+
+send "\r"
+
+sleep 1
+
+expect "Would you like to customize the default"
+
+sleep 0.5
+
+send "yes \r"
+
+sleep 1
+
+expect "would you like configured?"
+
+sleep 0.5
+
+send "@/* \r"
+
+
+expect eof

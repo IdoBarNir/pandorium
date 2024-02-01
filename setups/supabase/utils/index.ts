@@ -1,5 +1,4 @@
 import { loggerDogger } from "@utils";
-import supabaseConfig from "./supabaseConfig.json";
 import { supabaseInstall as supabaseInstallRaw } from "./supabaseInstall";
 
 export const supabaseInstall = async () =>
@@ -8,5 +7,3 @@ export const supabaseInstall = async () =>
     childLabel: "Supabase Installation",
     onlyTryCatch: true,
   });
-
-export { supabaseConfig };

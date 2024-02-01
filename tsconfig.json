@@ -20,6 +20,8 @@
     "./config/**/*",
     "./setups/**/*",
     "./utils/**/*",
-    "./types/**/*"
+    "./types/**/*",
+    "./supabaseConfig.ts",
+    "./.env"
   ]
 }

@@ -11,11 +11,19 @@ export const createDirectory = async ({ directoryPath }) =>
     onlyTryCatch: true,
   });
 
-export const readFileAsync = async ({ fileName, fileType }) =>
+export const readFileAsync = async ({
+  fileName,
+  fileType,
+  local,
+}: {
+  fileName: string;
+  fileType?: string;
+  local?: boolean;
+}) =>
   await loggerDogger({
     child: readFileAsyncRaw,
     childLabel: "Reading File Async",
-    args: { fileName, fileType },
+    args: { fileName, fileType, local },
     onlyTryCatch: true,
   });
 
