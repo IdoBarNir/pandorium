@@ -4,9 +4,11 @@ import {
   muiSetup,
   nextSetup,
   supabaseSetup,
+  packageJsonSetup,
+  tsconfigSetup,
   vercelSetup,
 } from "@setups";
-import { execAsync, packageJsonSetup, tsconfigSetup } from "@utils";
+import { execAsync } from "@utils";
 import { PROJECT_NAME, PROJECT_PATH } from "@config";
 
 const pandorium = async () => {

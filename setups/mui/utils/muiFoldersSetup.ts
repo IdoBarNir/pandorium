@@ -1,13 +1,20 @@
 import { PROJECT_PATH } from "@config";
-import { createDirectory, getTsconfigContent, updateTsconfig } from "@utils";
+import { createDirectory, readFileAsync, writeFileAsync } from "@utils";
 import { muiFolders } from "./muiFolders";
 
 export const muiFoldersSetup = async () => {
-  const updatedTsconfig = await getTsconfigContent();
+  const updatedTsconfig = await readFileAsync({
+    fileName: "tsconfig",
+    fileType: "json",
+  });
 
   updatedTsconfig.compilerOptions.paths = { ...muiFolders };
 
-  await updateTsconfig({ updatedTsconfig });
+  await writeFileAsync({
+    fileName: "tsconfig",
+    fileType: "json",
+    fileContent: updatedTsconfig,
+  });
 
   await Promise.all(
     Object.values(muiFolders).flatMap((paths) =>
