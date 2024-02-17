@@ -21,7 +21,7 @@
     "./setups/**/*",
     "./utils/**/*",
     "./types/**/*",
-    "./supabaseConfig.ts",
+    "setups/supabase/heirloom/supabaseConfig.ts",
     "./.env"
   ]
 }

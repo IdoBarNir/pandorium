@@ -1,5 +1,5 @@
-import { supabaseInstall } from "./utils";
 import { readFileAsync, writeFileAsync } from "@utils";
+import { createUsersTable, supabaseInstall } from "./utils";
 
 export const supabaseSetup = async () => {
   await supabaseInstall();
@@ -9,6 +9,12 @@ export const supabaseSetup = async () => {
     local: true,
   });
 
+  await writeFileAsync({
+    fileName: "",
+    fileType: "env",
+    fileContent: envContent,
+  });
+
   const supabaseConfigContent = await readFileAsync({
     fileName: "supabaseConfig",
     fileType: "ts",
@@ -16,13 +22,10 @@ export const supabaseSetup = async () => {
   });
 
   await writeFileAsync({
-    fileName: "",
-    fileType: "env",
-    fileContent: envContent,
-  });
-  await writeFileAsync({
     fileName: "supabaseConfig",
     fileType: "ts",
     fileContent: supabaseConfigContent,
   });
+
+  await createUsersTable();
 };
