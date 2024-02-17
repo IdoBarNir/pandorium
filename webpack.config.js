@@ -51,8 +51,12 @@ const config = {
           to: "heirloom/serverContent.ts",
         },
         {
-          from: "supabaseConfig.ts",
+          from: "setups/supabase/heirloom/supabaseConfig.ts",
           to: "heirloom/supabaseConfig.ts",
+        },
+        {
+          from: "setups/supabase/heirloom/user_profiles.sql",
+          to: "heirloom/user_profiles.sql",
         },
       ],
     }),
